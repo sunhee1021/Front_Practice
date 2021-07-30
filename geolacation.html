@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //거리를 확인하고 싶은 리스트를 배열로 만들어서 (이름,주소,위도,경도를 입력)
+        let list = [
+            {name:"성산일출봉", addr:"제주 서귀포시 성산읍", latitude:33.4580731,longitude:126.9337452},
+            {name:"타임스퀘어", addr:"서울 영등포구 영중로 15 타임스퀘어", latitude:37.51801,longitude:126.90423},
+            {name:"비트캠프", addr:"서울 서초구 서초4동 강남대로 459", latitude:37.50519,longitude:127.02441},
+            {name:"여의도 더 현대", addr:"서울 영등포구 여의동 여의대로 108", latitude:37.52692,longitude:126.92855}
+    ];
+
+    //getDistance라는 함수를 생성
+    function getDistance(lat1, lon1, lat2, lon2, unit) { //비교를 위한 위도,경도,위도,경도 를 파라미터로 받음(unit은)
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
+
+        //현재 내위치(위도, 경도를 입력해줌)
+        navigator.geolocation.getCurrentPosition((position) => {
+            let latitude = position.coords.latitude;    //위도 37.5022717
+            let longitude = position.coords.longitude;  //경도 126.900341
+            
+            //콘솔창에서 확인할수 있게 console.log
+            console.log('latitude', latitude);
+            console.log('longitude', longitude);
+
+            //km단위로 산출, 그 거리를 list[i].distance에 넣어줌
+            //내 현재위치의 위도와 list[i]의 위도 차이를 확인
+            //내 현재위치의 경도와 list[i]의 경도 차이를 확인
+            for(let i = 0; i<list.length; i++){
+                let distance = getDistance(latitude, longitude, list[i].latitude, list[i].longitude,"K");
+                list[i].distance = distance;
+            }
+
+            let newList = list.sort(function (a, b) {
+            //distance 순으로 정렬(새로운 배열을 만들어서 기존 배열을 정렬)
+            if (a.distance > b.distance) {
+                return 1;
+            }
+            if (a.distance < b.distance) {
+                return -1;
+            }
+            // a must be equal to b
+            return 0;
+            });
+
+            console.log(newList);
+
+            
+
+        },(err) => {
+
+
+        });
+
+    </script>
+    
+</body>
+</html>
