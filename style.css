@@ -1,0 +1,84 @@
+*{ /* 여기 *표는 모든부분에 적용되는 style을 의미 */
+    color: #2e2e2e;
+
+}
+
+html, body {
+    /*html태그 그리고 body안에 있는 것들의 속성을 정한다*/
+    margin: 0px; /*margin 여유공간*/
+    height: 100%
+
+}
+
+/* 웹페이지 전체를 감싸는 클래스*/
+.wrapper{
+    display : flex; /*flex : 선형 정렬*/
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.wrapper.indexPage{
+    /*플렉스 안의 내용물을 가운데로 정렬하겠다*/
+    justify-content: center;
+}
+
+
+.mainSection{
+    display : flex;
+    flex-direction: column;
+
+    /*가운데 정렬*/
+    align-items: center;
+}
+
+.mainSection .searchContainer{
+    margin-top:30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.mainSection .searchContainer .searchBox{
+    border : none;
+    box-shadow: 0px 2px 0 rgba(0,0,0,0.16),0 0 0 1px rgba(0,0,0,0.08);
+    height: 44px;
+    border-radius: 22px;
+    width: 38%;
+    outline: none;
+    /*여기도 선형 정렬*/
+    display: flex;
+    align-items: center;
+}
+
+.mainSection .searchContainer .searchBox img{
+    width: 20px;
+    height: 20px;
+    margin-right: 13px;
+    margin-left: 13px;
+    color :rgba(167, 164, 164, 0.795);
+}
+
+.mainSection .searchContainer .searchBox input{
+    flex : 1;
+    height: 38px;
+    margin-right: 20px;
+    margin-left: 10px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.mainSection .searchContainer .box button{
+
+    height: 38px;
+    margin-top : 38px;
+    margin-right: 20px;
+    box-shadow: 0px 2px 0 rgba(0,0,0,0.16),0 0 0 1px rgba(0,0,0,0.08);
+    border: none;
+    outline: none;
+    font-size: 15px;
+    float: left;
+    color : #2e2e2e;
+}
